@@ -1,7 +1,7 @@
 # milk-thistle
 A fast and small program for secp384r1 key pair generation with rust openssl.
 
-The private key is encrypted symmetrically with AES 128 CBC and a hard-coded passphrase in the milk-thistle binary.
+The private key is encrypted symmetrically with AES 256 GCM and a hard-coded passphrase in the milk-thistle binary.
 
 Change the value that is set as CHANGEME in src/main.rs to the passphrase desired. Alternatively, read that passphrase from a config file or environment variable by updating src/main.rs accordingly.
 
