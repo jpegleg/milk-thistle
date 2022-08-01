@@ -20,7 +20,7 @@ fn main() {
     let public_key = EcPoint::from_bytes(&group, &bytes, &mut ctx).unwrap();
     let ec_key = EcKey::from_public_key(&group, &public_key).unwrap();
     let pem = ec_key.public_key_to_pem().unwrap();
-    let private_pem = key.private_key_to_pem_passphrase(Cipher::aes_128_cbc(), b"CHANGEME").unwrap();
+    let private_pem = key.private_key_to_pem_passphrase(Cipher::aes_256_gcm(), b"CHANGEME").unwrap();
     let datas = match str::from_utf8(&pem) {
         Ok(v) => v,
         Err(e) => panic!("Invalid UTF-8 sequence for public key: {}", e),
