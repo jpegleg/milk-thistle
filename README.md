@@ -17,42 +17,25 @@ In order to create the microservice, see prototype examples https://github.com/j
 Here is an example command line inflate to PEM formating from within the build git directory after `cargo build --release`:
 
 ```
-(base) 🦀; echo -e $(target/release/milk-thistle TID-45727f7d8112bcf450572c0e9c9d87c3 >> /var/tmp/milk-thistle.log; tail -n1 /var/tmp/milk-thistle.log) | sed 's/\"//g' | sed 's/,//g' | sed 's/ -----BEGIN PUBLIC/-----BEGIN PUBLIC/g' | sed 's/.*-----BEGIN EC PRIVATE KEY-----/-----BEGIN EC PRIVATE KEY-----/g' > /var/tmp/45727f7d8112bcf450572c0e9c9d87c3.pem
-(base) 🦀; echo -e $(target/release/milk-thistle TID-e0373662deeece51b3443c21cc3f4e2c >> /var/tmp/milk-thistle.log; tail -n1 /var/tmp/milk-thistle.log) | sed 's/\"//g' | sed 's/,//g' | sed 's/ -----BEGIN PUBLIC/-----BEGIN PUBLIC/g' | sed 's/.*-----BEGIN EC PRIVATE KEY-----/-----BEGIN EC PRIVATE KEY-----/g' | tee /var/tmp/e0373662deeece51b3443c21cc3f4e2c.pem
+(base) 🦀; export XTUID=$(cat /dev/urandom | head -n12 | b2sum | cut -c1-24 )
+(base) 🦀; echo -e $(target/release/milk-thistle TID-e037_$XTUID >> /var/tmp/milk-thistle.log; tail -n1 /var/tmp/milk-thistle.log) | sed 's/\"//g' | sed 's/,//g' | sed 's/ -----BEGIN PUBLIC/-----BEGIN PUBLIC/g' | sed 's/.*-----BEGIN EC PRIVATE KEY-----/-----BEGIN EC PRIVATE KEY-----/g' | tee /var/tmp/"$XTUID".pem
 -----BEGIN EC PRIVATE KEY-----
 Proc-Type: 4ENCRYPTED
-DEK-Info: AES-128-CBC1D5CF6AF86F14CB3462E546D3F2AC22E
+DEK-Info: AES-128-CBC1609D41D3C66CE356C84A5CCC809E921
 
-17oACSMbqpo3tRXAFd2QJv7JpL5oZYgUfmB/kQ8A+9TNGV1/++zZINwFfCmsHVyg
-1e+1bwjLMrYut/RZ9w+Jq0rKNKha5kZ9bbrAB8DY8k6Mk07ezf/s3HhPcJAuu0CQ
-HoqrgTB33LzKfFwKLSrA+KlfJPJebhPQ863UCOGqw/UvFHU8AsS/Wnk/w1O6TnuN
-aTT5bx2OYOLkq6B0Rl4bGJYKmsyMc56RT5nkISs4p6w=
+CYVISeH4KEpp+3omaciUiPtvmfITTzw/kWLTFXnMzSUFGAJ+mshsOOFzMiEqF6+/
+2s4kG8hPollztj8jhxMnrb0+cgWXqCWqSqj2XNmVSLlbtSQARxxsRZSrcrsW1ICp
+kuRb3SKsEZaeSPkLsV7Zacj1cl8YQcwMnyzhgUuUjl0uVKttlUEt813/BGLjSJRq
+U6R+EAGCIH0AUQi5A9MBy/k/ZM9XM0kq28NOMtEfvIc=
 -----END EC PRIVATE KEY-----
 -----BEGIN PUBLIC KEY-----
-MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEOcozvmgOEpAvbfCGYmrRDDaayYnxxgii
-EMT07BoYh/xHEyG9O49gq+vxAhsrPFNq42FyeDBBLSsX+Agi8oNc+g1Nkv6DiALy
-80xhIN+88DsQL13Oth3j5kC6A4TyH4bZ
+MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE4gUblQOsXcA0uPA3U9ELZ/jxVCTmsJtz
+W3fwVjBwZ7Kz5iNh9OpV2sw1yRlN+7QfdS9JJLYId6uPx75+Jvky7E8s4nTTowzW
+vIeVoxjdR/1EzPG+0lZhQtpoZcBDBggL
 -----END PUBLIC KEY-----
 
-(base) 🦀; cat /var/tmp/e0373662deeece51b3443c21cc3f4e2c.pem
------BEGIN EC PRIVATE KEY-----
-Proc-Type: 4ENCRYPTED
-DEK-Info: AES-128-CBC1D5CF6AF86F14CB3462E546D3F2AC22E
-
-17oACSMbqpo3tRXAFd2QJv7JpL5oZYgUfmB/kQ8A+9TNGV1/++zZINwFfCmsHVyg
-1e+1bwjLMrYut/RZ9w+Jq0rKNKha5kZ9bbrAB8DY8k6Mk07ezf/s3HhPcJAuu0CQ
-HoqrgTB33LzKfFwKLSrA+KlfJPJebhPQ863UCOGqw/UvFHU8AsS/Wnk/w1O6TnuN
-aTT5bx2OYOLkq6B0Rl4bGJYKmsyMc56RT5nkISs4p6w=
------END EC PRIVATE KEY-----
------BEGIN PUBLIC KEY-----
-MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEOcozvmgOEpAvbfCGYmrRDDaayYnxxgii
-EMT07BoYh/xHEyG9O49gq+vxAhsrPFNq42FyeDBBLSsX+Agi8oNc+g1Nkv6DiALy
-80xhIN+88DsQL13Oth3j5kC6A4TyH4bZ
------END PUBLIC KEY-----
-
-(base) 🦀; cat /var/tmp/milk-thistle.log                    
-2022-09-02 06:16:05.919774868 UTC - Some("TID-45727f7d8112bcf450572c0e9c9d87c3") - Thistle Field: Milk Thistle Microservice - secp384r1 generation >-> "-----BEGIN EC PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC,13B2AAF99DD3564CE84E6E826A5EC52E\n\n/C2SdT85FGnv+u/uMpFrBp7tWE01EK3xFNF/S9ojjKrcbFo57hw/niQYFBf59iYE\nLporDEeuJvO8Bxe1EBlG1lo5rkiwoUGnyKZzfcO3yYx9CsbG8KK2T5KXBXc3NTRw\nyykgtlwcrJ9X5Oxt4xNHFkshZtwbEgDrDeds7EQRH0lm9hI/lBTzDyoGIcHhAS04\nqgQIK5v+oR3kj80pSq+6SIa1G6ttTUQAXsb/wCgNdrI=\n-----END EC PRIVATE KEY-----\n", "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEmgkUw3N20JqVHGtx6Zaz+Tldz3aCue5L\n56zslMqNfdn9U1v31H4RIPb8kC1VCEgxiYU8r5LCc6kAnRmW4jsgBVWGHf/XDQqq\nd1TA0xFZDptpW3UR/VvH5iaJHTpwSBOY\n-----END PUBLIC KEY-----\n"
-2022-09-02 06:16:15.392962522 UTC - Some("TID-e0373662deeece51b3443c21cc3f4e2c") - Thistle Field: Milk Thistle Microservice - secp384r1 generation >-> "-----BEGIN EC PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC,1D5CF6AF86F14CB3462E546D3F2AC22E\n\n17oACSMbqpo3tRXAFd2QJv7JpL5oZYgUfmB/kQ8A+9TNGV1/++zZINwFfCmsHVyg\n1e+1bwjLMrYut/RZ9w+Jq0rKNKha5kZ9bbrAB8DY8k6Mk07ezf/s3HhPcJAuu0CQ\nHoqrgTB33LzKfFwKLSrA+KlfJPJebhPQ863UCOGqw/UvFHU8AsS/Wnk/w1O6TnuN\naTT5bx2OYOLkq6B0Rl4bGJYKmsyMc56RT5nkISs4p6w=\n-----END EC PRIVATE KEY-----\n", "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEOcozvmgOEpAvbfCGYmrRDDaayYnxxgii\nEMT07BoYh/xHEyG9O49gq+vxAhsrPFNq42FyeDBBLSsX+Agi8oNc+g1Nkv6DiALy\n80xhIN+88DsQL13Oth3j5kC6A4TyH4bZ\n-----END PUBLIC KEY-----\n"
+(base) 🦀; tail -n1 /var/tmp/milk-thistle.log
+2022-09-02 06:52:25.902623189 UTC - Some("TID-e037_b3dfd6508df50fef7b02476d") - Thistle Field: Milk Thistle Microservice - secp384r1 generation >-> "-----BEGIN EC PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED\nDEK-Info: AES-128-CBC,1609D41D3C66CE356C84A5CCC809E921\n\nCYVISeH4KEpp+3omaciUiPtvmfITTzw/kWLTFXnMzSUFGAJ+mshsOOFzMiEqF6+/\n2s4kG8hPollztj8jhxMnrb0+cgWXqCWqSqj2XNmVSLlbtSQARxxsRZSrcrsW1ICp\nkuRb3SKsEZaeSPkLsV7Zacj1cl8YQcwMnyzhgUuUjl0uVKttlUEt813/BGLjSJRq\nU6R+EAGCIH0AUQi5A9MBy/k/ZM9XM0kq28NOMtEfvIc=\n-----END EC PRIVATE KEY-----\n", "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE4gUblQOsXcA0uPA3U9ELZ/jxVCTmsJtz\nW3fwVjBwZ7Kz5iNh9OpV2sw1yRlN+7QfdS9JJLYId6uPx75+Jvky7E8s4nTTowzW\nvIeVoxjdR/1EzPG+0lZhQtpoZcBDBggL\n-----END PUBLIC KEY-----\n"
 
 (base) 🦀;
 ```
