@@ -5,6 +5,7 @@ protean_build() {
 
 protean_test() {
     export XTUID=$(cat /dev/urandom | head -n12 | b2sum | cut -c1-24 )
-    echo -e $(target/release/milk-thistle TID-e037_$XTUID >> /var/tmp/milk-thistle.log; tail -n1 /var/tmp/milk-thistle.log) | sed 's/\"//g' | sed 's/,//g' | sed 's/ -----BEGIN PUBLIC/-----BEGIN PUBLIC/g' | sed 's/.*-----BEGIN EC PRIVATE KEY-----/-----BEGIN EC PRIVATE KEY-----/g' | tee /var/tmp/"$XTUID".pem
+    echo -e $(/opt/protean-gitops/$dir/target/release/milk-thistle TID-e037_$XTUID >> /var/tmp/milk-thistle.log; tail -n1 /var/tmp/milk-thistle.log) | sed 's/\"//g' | sed 's/,//g' | sed 's/ -----BEGIN PUBLIC/-----BEGIN PUBLIC/g' | sed 's/.*-----BEGIN EC PRIVATE KEY-----/-----BEGIN EC PRIVATE KEY-----/g' | tee /var/tmp/"$XTUID".pem
+    sleep 1
     ~/.cargo/bin/cargo clean
 }
