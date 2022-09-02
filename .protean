@@ -1,5 +1,5 @@
 protean_build() {
-  echo "Not used for milk-thistle"
+  dpkg -l | grep librust-openssl-dev || apt-get install librust-openssl-dev -y
 }
 
 protean_test() {
